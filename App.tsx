@@ -37,8 +37,12 @@ const App = () => {
 
   return(
     <View style={styles.container}>
-      <NextShitterComponent shitList = {DATA.sort(compShitListEntries)}/>
-      <ShitListComponent shitList = {DATA.sort(compShitListEntries)}/>
+      <View style={styles.nextShitterDisplay}>
+        <NextShitterComponent shitList = {DATA.sort(compShitListEntries)}/>
+      </View>
+      <View style={styles.shitListDisplay}>
+        <ShitListComponent shitList = {DATA.sort(compShitListEntries)}/>
+      </View>
     </View>
 
   )
@@ -47,6 +51,12 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  nextShitterDisplay: {
+    flex: 1
+  },
+  shitListDisplay: {
+    flex: 2
   }
 })
 export default App

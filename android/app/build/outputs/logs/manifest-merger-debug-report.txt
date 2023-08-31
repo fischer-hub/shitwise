@@ -8,6 +8,8 @@ MERGED from /home/david/Shitwise/android/app/src/main/AndroidManifest.xml:1:1-25
 MERGED from [com.facebook.flipper:flipper-network-plugin:0.182.0] /home/david/.gradle/caches/transforms-3/e47626a30834dcd66576d826bae55315/transformed/jetified-flipper-network-plugin-0.182.0/AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.182.0] /home/david/.gradle/caches/transforms-3/927874504f02e490d8ef5fc541319ddd/transformed/jetified-flipper-fresco-plugin-0.182.0/AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper:0.182.0] /home/david/.gradle/caches/transforms-3/e13f88164840fe641a466d05cd8edac7/transformed/jetified-flipper-0.182.0/AndroidManifest.xml:8:1-18:12
+MERGED from [:react-native-safe-area-context] /home/david/Shitwise/node_modules/react-native-safe-area-context/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-vector-icons] /home/david/Shitwise/node_modules/react-native-vector-icons/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [com.facebook.react:react-android:0.72.4] /home/david/.gradle/caches/transforms-3/6fe00d6361b0f0c55549aec89a7f6742/transformed/jetified-react-android-0.72.4-debug/AndroidManifest.xml:2:1-7:12
 MERGED from [com.facebook.react:hermes-android:0.72.4] /home/david/.gradle/caches/transforms-3/0eba9a168eb8819dccb7829f2ba40fb2/transformed/jetified-hermes-android-0.72.4-debug/AndroidManifest.xml:2:1-7:12
 MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.5.0] /home/david/.gradle/caches/transforms-3/463b085172aadec89519c358dac4e9e6/transformed/jetified-imagepipeline-okhttp3-2.5.0/AndroidManifest.xml:2:1-9:12
@@ -162,6 +164,10 @@ MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.182.0] /home/david/.gr
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.182.0] /home/david/.gradle/caches/transforms-3/927874504f02e490d8ef5fc541319ddd/transformed/jetified-flipper-fresco-plugin-0.182.0/AndroidManifest.xml:11:5-13:41
 MERGED from [com.facebook.flipper:flipper:0.182.0] /home/david/.gradle/caches/transforms-3/e13f88164840fe641a466d05cd8edac7/transformed/jetified-flipper-0.182.0/AndroidManifest.xml:11:5-13:41
 MERGED from [com.facebook.flipper:flipper:0.182.0] /home/david/.gradle/caches/transforms-3/e13f88164840fe641a466d05cd8edac7/transformed/jetified-flipper-0.182.0/AndroidManifest.xml:11:5-13:41
+MERGED from [:react-native-safe-area-context] /home/david/Shitwise/node_modules/react-native-safe-area-context/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-safe-area-context] /home/david/Shitwise/node_modules/react-native-safe-area-context/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-vector-icons] /home/david/Shitwise/node_modules/react-native-vector-icons/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-vector-icons] /home/david/Shitwise/node_modules/react-native-vector-icons/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [com.facebook.react:react-android:0.72.4] /home/david/.gradle/caches/transforms-3/6fe00d6361b0f0c55549aec89a7f6742/transformed/jetified-react-android-0.72.4-debug/AndroidManifest.xml:5:5-44
 MERGED from [com.facebook.react:react-android:0.72.4] /home/david/.gradle/caches/transforms-3/6fe00d6361b0f0c55549aec89a7f6742/transformed/jetified-react-android-0.72.4-debug/AndroidManifest.xml:5:5-44
 MERGED from [com.facebook.react:hermes-android:0.72.4] /home/david/.gradle/caches/transforms-3/0eba9a168eb8819dccb7829f2ba40fb2/transformed/jetified-hermes-android-0.72.4-debug/AndroidManifest.xml:5:5-44

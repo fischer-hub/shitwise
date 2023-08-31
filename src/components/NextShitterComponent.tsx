@@ -34,8 +34,8 @@ const NextShitterComponent = (props: any) => {
     <SafeAreaView style={styles.wrapper}>
       <View
         style={styles.container}>
-        <Text>Next shitter is: {getNextShitter(data).title}!</Text>
-        <Text>Shit reserved for {format(getNextShitter(data).date, 'dd.MM.yyyy')}!</Text>
+        <Text style={styles.nextShitterFont1}>Next shitter is: {getNextShitter(data).title}!</Text>
+        <Text style={styles.nextShitterFont2}>Shit reserved for {format(getNextShitter(data).date, 'dd.MM.yyyy')}!</Text>
       </View>
     </SafeAreaView>
   );
@@ -45,12 +45,19 @@ const styles = StyleSheet.create({
   
   wrapper: {
     flex: 1
- },
+ },  
 
+  nextShitterFont1: {
+    fontSize: 30
+  },
+  nextShitterFont2: {
+    fontSize: 20
+  },
   container: {
      backgroundColor: 'orange',
      flex: 1,
-     alignItems: 'center'
+     alignItems: 'center',
+     justifyContent: 'center'
   }
           
 })
