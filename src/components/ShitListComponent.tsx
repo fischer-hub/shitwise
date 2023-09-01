@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { format, compareAsc } from "date-fns";
+import { format, compareDesc } from "date-fns";
+import Entypo from 'react-native-vector-icons/Entypo';
 
 type shitListEntry = {
   date: Date;
@@ -8,23 +9,39 @@ type shitListEntry = {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  shitListContainer: {
+    backgroundColor: '#8e518d',
     flex: 1,
-    paddingTop: 22,
+    paddingTop: 20,
   },
-  item_title: {
+  itemTitle: {
     fontSize: 22,
-    height: 44,
-    paddingLeft: 10,
-    paddingTop: 5,
+    fontWeight: 'bold',
+    color: '#8e518d'
   },
-  item_date: {
+  itemDate: {
     fontSize: 18,
-    height: 44,
-    paddingRight: 10,
-    paddingLeft: 10,
-    paddingBottom:0
+    fontWeight: 'bold',
+    color: '#8e518d'
   },
+  itemMoreBtn: {
+    flex: 1,
+    marginLeft: 5,
+    alignItems: 'flex-end',
+    justifyContent: 'center'
+  },
+  itemMoreIcon:{
+    fontSize: 39,
+    color: '#824a81',
+  },
+  shitListEntryContainer: {
+    backgroundColor: '#f7c7db',
+    borderRadius: 10,
+    marginHorizontal: 15,
+    marginVertical: 7,
+    padding:13,
+    flexDirection:'row',
+  }
 });
 
 const FlatListItemSeparator = () => {
@@ -41,14 +58,19 @@ const FlatListItemSeparator = () => {
 
 
 const compShitListEntries = ( a: shitListEntry, b: shitListEntry ) => {
-  return compareAsc(a.date, b.date);
+  return compareDesc(a.date, b.date);
 };
 
 const renderShitListEntry = ( entry: shitListEntry ) => {
   return (
-      <View>
-        <Text style={styles.item_title}>{entry.title}</Text>
-        <Text style={styles.item_date}>Shittapointment: {format(entry.date, 'yyyy-MM-dd')}</Text>
+      <View style={styles.shitListEntryContainer}>
+        <View>
+          <Text style={styles.itemTitle}>{entry.title}</Text>
+          <Text style={styles.itemDate}>Shittapointment: {format(entry.date, 'dd.MM.yyyy')}</Text>
+        </View>
+        <View style={styles.itemMoreBtn}>
+          <Entypo name="chevron-right" style={styles.itemMoreIcon} />
+        </View>
       </View>
     );
 };
@@ -57,12 +79,12 @@ const ShitListComponent = (props: any) => {
   
   const data = props.shitList.sort(compShitListEntries);
   return (
-    <View style={styles.container}>
+    <View style={styles.shitListContainer}>
       <FlatList
         data={data}
         renderItem={({item}) => renderShitListEntry(item)}
         keyExtractor={item => format(item.date, 'yyyy-MM-dd')}
-        ItemSeparatorComponent={FlatListItemSeparator}
+        //ItemSeparatorComponent={FlatListItemSeparator}
       />
     </View>
   );
