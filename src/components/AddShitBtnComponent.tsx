@@ -1,14 +1,23 @@
-import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import React, {useState} from 'react';
+import { Modal, StyleSheet, Text, View, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 
-const AddShitBtnComponent = () => {
 
-  return(
+const AddShitBtnComponent = () => {
+  const [modalVisible, setModalVisible] = useState(true);
+  return (
+    <View>
+      <Modal animationType="slide" transparent={false} visible={modalVisible} onRequestClose={() => setModalVisible(false)} presentationStyle='pageSheet'>
+        <View style={styles.centeredView}>
+            <Text>Modal Content</Text>
+            <Button title='close' onPress={() => setModalVisible(false)}></Button>
+        </View>
+      </Modal>
       <View style={styles.addShitBtnView}>
-        <Icon.Button iconStyle={{marginRight: 0}} borderRadius={100} size={60} name='pluscircle' style={styles.addShitBtn}/>
+        <Icon.Button iconStyle={{marginRight: 0}} borderRadius={100} size={60} name='pluscircle' onPress={() => setModalVisible(true)} style={styles.addShitBtn}/>
       </View>
+    </View>
   )
 }
 
@@ -26,6 +35,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#452745',
     borderColor: '#452745',
     borderWidth: 2
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
   }
 })
 export default AddShitBtnComponent
