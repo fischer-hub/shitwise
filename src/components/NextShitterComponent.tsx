@@ -44,19 +44,14 @@ const NextShitterComponent = (props: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  margin: {
-    margin: 10,
-    backgroundColor: 'grey',
-    flex: 1
- },  
+const styles = StyleSheet.create({  
   wrapper: {
     flex: 1,
-    backgroundColor: '#B65CB8'
+    backgroundColor: '#fef7ff'
  },  
  cancelShitappointmentBtn: {
     fontWeight: 'bold',
-    backgroundColor:'#8e518d',
+    backgroundColor:'#845ec2',
     fontSize: 20,
     borderRadius: 20,
   },
@@ -68,13 +63,15 @@ const styles = StyleSheet.create({
   },
   nextShitterFont1: {
     fontWeight: 'bold',
-    fontSize: 30
+    fontSize: 30,
+    color: 'black'
   },
   nextShitterFont2: {
-    fontSize: 20
+    fontSize: 20,
+    color: 'black'
   },
   nextShitterContainer: {
-     backgroundColor: '#f79ad3',
+     backgroundColor: '#fef7ff',
      flex: 1,
      alignItems: 'center',
      justifyContent: 'flex-start',
@@ -82,18 +79,20 @@ const styles = StyleSheet.create({
      marginTop: 30,
      marginBottom: 40,
      borderRadius: 30,
-     padding: 20
+     padding: 20,
+     borderColor: '#9b89b3',
+     borderWidth: 2
   },
   cancelShitappointmentBtnText: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: '#d7c0d0',
+    color: '#845ec2',
   },
   cancelShitappointmentBtnIcon: {
     fontSize: 19,
-    color: '#d7c0d0',
+    color: '#845ec2',
     marginRight: 10
   }
           

@@ -10,19 +10,19 @@ type shitListEntry = {
 
 const styles = StyleSheet.create({
   shitListContainer: {
-    backgroundColor: '#8e518d',
+    backgroundColor: '#9b89b3',
     flex: 1,
     paddingTop: 20,
   },
   itemTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#8e518d'
+    color: 'black'
   },
   itemDate: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#8e518d'
+    color: 'black'
   },
   itemMoreBtn: {
     flex: 1,
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
   },
   itemMoreIcon:{
     fontSize: 39,
-    color: '#824a81',
+    color: '#845ec2',
   },
   shitListEntryContainer: {
-    backgroundColor: '#f7c7db',
+    backgroundColor: '#fef7ff',
     borderRadius: 10,
     marginHorizontal: 15,
     marginVertical: 7,
