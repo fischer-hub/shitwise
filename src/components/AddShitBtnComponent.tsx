@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import { Modal, StyleSheet, Text, View, Button} from 'react-native';
+import { Modal, StyleSheet, Text, View, Pressable, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import DatePicker from 'react-native-date-picker'
+import { TouchableWithoutFeedback } from 'react-native';
 
 
 const AddShitBtnComponent = () => {
@@ -13,44 +14,54 @@ const AddShitBtnComponent = () => {
   return (
     <View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)} >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalWindow}>
-            <View style={styles.dialogueTitle}>
-              <Text>Add Shitappointment</Text>
-            </View>
-            <View style={styles.selectBeginBtn}>
-              <Button title="Begin" onPress={() => setOpen(true)} />
-              <DatePicker modal={true} mode='datetime' open={open} date={begin}
-                onConfirm={(date) => {
-                  setOpen(false)
-                  setDateBegin(date)
-                }}
-                onCancel={() => {
-                  setOpen(false)
-                }}
-              />
-            </View>
-            <View style={styles.selectEndBtn}>
-              <Button title="End" onPress={() => setOpen(true)} />
-              <DatePicker modal={true} mode='datetime' open={open} date={begin}
-                onConfirm={(date) => {
-                  setOpen(false)
-                  setDateBegin(date)
-                }}
-                onCancel={() => {
-                  setOpen(false)
-                }}
-              />
-            </View>
-            <View style={styles.confirmBtn}>
-              <Button title='Confirm' onPress={() => setModalVisible(false)}></Button>
-            </View>
-
+        <TouchableOpacity style={{flex:1}} onPress={() => {setModalVisible(false)}}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalWindow}>
+                <View style={styles.dialogueTitle}>
+                  <Text style={styles.dialogueTitleText}>Add Shitappointment</Text>
+                </View>
+                <View style={styles.dialogueBtnsView}>
+                  {/* We can probably get rid of these two pressables by putting them in one component and passing the title and onpress fct as props but oh well im too lazy rn */}
+                  <Pressable style={styles.dialogueBtns} onPress={() => setOpen(true)}>
+                    <Text style={styles.dialogueBtnsText}>Begin</Text>
+                  </Pressable>
+                  <DatePicker modal={true} mode='datetime' open={open} date={begin}
+                    onConfirm={(date) => {
+                      setOpen(false)
+                      setDateBegin(date)
+                    }}
+                    onCancel={() => {
+                      setOpen(false)
+                    }}
+                  />
+                </View>
+                <View style={styles.dialogueBtnsView}>
+                  <Pressable style={styles.dialogueBtns} onPress={() => setOpen(true)}>
+                    <Text style={styles.dialogueBtnsText}>End</Text>
+                  </Pressable>
+                  <DatePicker modal={true} mode='datetime' open={open} date={begin}
+                    onConfirm={(date) => {
+                      setOpen(false)
+                      setDateBegin(date)
+                    }}
+                    onCancel={() => {
+                      setOpen(false)
+                    }}
+                  />
+                </View>
+                <View style={styles.dialogueBtnsView}>
+                  <Pressable style={styles.dialogueBtns} onPress={() => setModalVisible(false)}>
+                    <Text style={styles.dialogueBtnsText}>Confirm</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
-        </View>
+        </TouchableOpacity>
       </Modal>
       <View style={styles.addShitBtnView}>
-        <Icon.Button iconStyle={{marginRight: 0}} borderRadius={100} size={60} name='pluscircle' onPress={() => setModalVisible(true)} style={styles.addShitBtn}/>
+        <Icon.Button backgroundColor={'transparent'} color={'#845ec2'} iconStyle={{marginRight:0}} borderRadius={1000} size={80} name='pluscircle' onPress={() => setModalVisible(true)} style={styles.addShitBtn}/>
       </View>
     </View>
   )
@@ -66,24 +77,25 @@ const styles = StyleSheet.create({
   },
   addShitBtn: {
     fontSize: 30,
-    borderRadius: 30,
-    backgroundColor: '#845ec2',
-    borderColor: '#845ec2',
-    borderWidth: 2
+    borderRadius: 1000,
+    backgroundColor: '#fef7ff',
+    borderColor: 'transparent',
+    padding:0
   },
   modalOverlay: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(rgba(221, 134, 179, 0.7))',
+    backgroundColor: 'rgba(155, 137, 179, .7)',
   },
   modalWindow: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#D7C0D0',
+    backgroundColor: '#fef7ff',
     width: '70%',
     height: '30%',
-    borderRadius: 25
+    borderRadius: 25,
+    padding: 15
   },
   button: {
     borderRadius: 20,
@@ -93,14 +105,28 @@ const styles = StyleSheet.create({
   dialogueTitle: {
     flex: 1
   },
-  selectBeginBtn: {
-    flex: 1
+  dialogueTitleText:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black'
+
   },
-  selectEndBtn: {
-    flex: 1
+  dialogueBtnsView: {
+    flex: 1,
+    width: '90%',
+    alignItems: 'center'
   },
-  confirmBtn: {
-    flex: 1
+  dialogueBtns: {
+    borderRadius: 50,
+    backgroundColor: '#845ec2',
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    width: '100%',
+    alignItems: 'center'
+  },
+  dialogueBtnsText: {
+    color: '#fef7ff',
+    fontWeight: 'bold'
   }
 })
 export default AddShitBtnComponent
