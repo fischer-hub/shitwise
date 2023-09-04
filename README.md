@@ -1,4 +1,12 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# About Shitwise
+Welcome to the official Shitwise github repository!
+
+Shitwise solves the incredibly common problem of toilet time slot shortages when sharing a bathroom, e.g. when on vacation with your friends!
+Create a group(shit) and reserve time slots for your shared bathroom in advance. This way your friends and you can manage your Shittapointments and don't have to fight for restroom-time (many friendships have suffered from this problem before I swear)!
+
+Additionally, Shitwise lets you rate and share your toilet experience with your group(shit) and automatically calculates stats and metrics regarding your shit behaviour. Prepare for shit-achievements (shachievements) and shit-score boards!
+
+Brace yourself, let the shitting begin! :shit:
 
 # Getting Started
 

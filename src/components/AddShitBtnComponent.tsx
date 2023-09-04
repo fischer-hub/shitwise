@@ -1,14 +1,22 @@
 import React, {useState} from 'react';
 import { Modal, StyleSheet, Text, View, Pressable, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import DatePicker from 'react-native-date-picker'
+import DatePicker from 'react-native-date-picker';
+import { format, minTime, isBefore } from 'date-fns'
 import { TouchableWithoutFeedback } from 'react-native';
 
+const renderDate = (date: Date | undefined) => {
+  if(!date){
+    return 'Begin'
+  }else{
+    return format(date, 'dd.MM.yyyy H:m')
+  }
+}
 
 const AddShitBtnComponent = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [begin, setDateBegin] = useState(new Date());
-  const [end, setDateEnd] = useState(new Date());
+  const [begin, setDateBegin] = useState(undefined);
+  const [end, setDateEnd] = useState(undefined);
   const [open, setOpen] = useState(false);
 
   return (
@@ -24,12 +32,12 @@ const AddShitBtnComponent = () => {
                 <View style={styles.dialogueBtnsView}>
                   {/* We can probably get rid of these two pressables by putting them in one component and passing the title and onpress fct as props but oh well im too lazy rn */}
                   <Pressable style={styles.dialogueBtns} onPress={() => setOpen(true)}>
-                    <Text style={styles.dialogueBtnsText}>Begin</Text>
+                    <Text style={styles.dialogueBtnsText}>{renderDate(begin)}</Text>
                   </Pressable>
                   <DatePicker modal={true} mode='datetime' open={open} date={begin}
-                    onConfirm={(date) => {
+                    onConfirm={(begin) => {
                       setOpen(false)
-                      setDateBegin(date)
+                      setDateBegin(begin)
                     }}
                     onCancel={() => {
                       setOpen(false)
@@ -106,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   dialogueTitleText:{
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: 'bold',
     color: 'black'
 
@@ -125,6 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   dialogueBtnsText: {
+    fontSize: 17,
     color: '#fef7ff',
     fontWeight: 'bold'
   }
