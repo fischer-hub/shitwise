@@ -4,20 +4,41 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import DatePicker from 'react-native-date-picker';
 import { format, minTime, isBefore } from 'date-fns'
 import { TouchableWithoutFeedback } from 'react-native';
+import { shitwiseDB } from './supabaseConfig' 
 
-const renderDate = (date: Date | undefined) => {
+
+type shitListEntry = {
+  dateBegin: Date | undefined;
+  dateEnd: Date | undefined;
+  name: string;
+};
+
+
+const renderDate = (date: Date | undefined, title: string) => {
   if(!date){
-    return 'Begin'
+    return title
   }else{
-    return format(date, 'dd.MM.yyyy H:m')
+    return format(date, 'dd.MM.yy - HH:mm')
   }
+}
+
+const addShittapointment = async (shittapointment: shitListEntry) => {
+
+  shittapointment.dateBegin ??= new Date()
+  shittapointment.dateEnd ??= new Date()
+  
+  const { error } = await shitwiseDB.from('shittapointments').insert({ begin: format(shittapointment.dateBegin, 'MM-dd-y HH:mm:SS'), end: format(shittapointment.dateEnd, 'MM-dd-y HH:mm:SS'), name: shittapointment.name })
+  console.log(error)
+
+
 }
 
 const AddShitBtnComponent = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [begin, setDateBegin] = useState(undefined);
-  const [end, setDateEnd] = useState(undefined);
-  const [open, setOpen] = useState(false);
+  const [begin, setDateBegin] = useState<undefined|Date>(undefined);
+  const [end, setDateEnd] = useState<undefined|Date>(undefined);
+  const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
   return (
     <View>
@@ -31,36 +52,36 @@ const AddShitBtnComponent = () => {
                 </View>
                 <View style={styles.dialogueBtnsView}>
                   {/* We can probably get rid of these two pressables by putting them in one component and passing the title and onpress fct as props but oh well im too lazy rn */}
-                  <Pressable style={styles.dialogueBtns} onPress={() => setOpen(true)}>
-                    <Text style={styles.dialogueBtnsText}>{renderDate(begin)}</Text>
+                  <Pressable style={styles.dialogueBtns} onPress={() => setOpen1(true)}>
+                    <Text style={styles.dialogueBtnsText}>{renderDate(begin, 'Begin')}</Text>
                   </Pressable>
-                  <DatePicker modal={true} mode='datetime' open={open} date={begin}
-                    onConfirm={(begin) => {
-                      setOpen(false)
-                      setDateBegin(begin)
-                    }}
-                    onCancel={() => {
-                      setOpen(false)
-                    }}
-                  />
-                </View>
-                <View style={styles.dialogueBtnsView}>
-                  <Pressable style={styles.dialogueBtns} onPress={() => setOpen(true)}>
-                    <Text style={styles.dialogueBtnsText}>End</Text>
-                  </Pressable>
-                  <DatePicker modal={true} mode='datetime' open={open} date={begin}
+                  <DatePicker modal={true} mode='datetime' open={open1} date={new Date()}
                     onConfirm={(date) => {
-                      setOpen(false)
+                      setOpen1(false)
                       setDateBegin(date)
                     }}
                     onCancel={() => {
-                      setOpen(false)
+                      setOpen1(false)
                     }}
                   />
                 </View>
                 <View style={styles.dialogueBtnsView}>
-                  <Pressable style={styles.dialogueBtns} onPress={() => setModalVisible(false)}>
-                    <Text style={styles.dialogueBtnsText}>Confirm</Text>
+                  <Pressable style={styles.dialogueBtns} onPress={() => setOpen2(true)}>
+                    <Text style={styles.dialogueBtnsText}>{renderDate(end, 'End')}</Text>
+                  </Pressable>
+                  <DatePicker modal={true} mode='datetime' open={open2} date={new Date()}
+                    onConfirm={(date) => {
+                      setOpen2(false)
+                      setDateEnd(date)
+                    }}
+                    onCancel={() => {
+                      setOpen2(false)
+                    }}
+                  />
+                </View>
+                <View style={styles.dialogueBtnsView}>
+                  <Pressable style={styles.confirmBtn} onPress={() => {setModalVisible(false); addShittapointment({dateBegin: begin, dateEnd: end, name: 'begin'})}}>
+                    <Text style={styles.confirmBtnText}>Confirm</Text>
                   </Pressable>
                 </View>
               </View>
@@ -69,7 +90,7 @@ const AddShitBtnComponent = () => {
         </TouchableOpacity>
       </Modal>
       <View style={styles.addShitBtnView}>
-        <Icon.Button backgroundColor={'transparent'} color={'#845ec2'} iconStyle={{marginRight:0}} borderRadius={1000} size={80} name='pluscircle' onPress={() => setModalVisible(true)} style={styles.addShitBtn}/>
+        <Icon.Button backgroundColor={'transparent'} color={'#845ec2'} iconStyle={{marginRight:0}} borderRadius={1000} size={80} name='pluscircle' onPress={() => {setModalVisible(true); setDateBegin(undefined); setDateEnd(undefined)}} style={styles.addShitBtn}/>
       </View>
     </View>
   )
@@ -117,7 +138,6 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: 'bold',
     color: 'black'
-
   },
   dialogueBtnsView: {
     flex: 1,
@@ -126,15 +146,29 @@ const styles = StyleSheet.create({
   },
   dialogueBtns: {
     borderRadius: 50,
+    borderColor: '#845ec2',
+    borderWidth: 2,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    width: '100%',
+    alignItems: 'center'
+  },
+  confirmBtn: {
+    borderRadius: 50,
     backgroundColor: '#845ec2',
     paddingVertical: 4,
     paddingHorizontal: 10,
     width: '100%',
     alignItems: 'center'
   },
-  dialogueBtnsText: {
+  confirmBtnText: {
     fontSize: 17,
     color: '#fef7ff',
+    fontWeight: 'bold'
+  },
+  dialogueBtnsText: {
+    fontSize: 17,
+    color: '#845ec2',
     fontWeight: 'bold'
   }
 })
