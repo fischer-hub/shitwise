@@ -4,24 +4,24 @@ import { format, closestIndexTo, isBefore } from 'date-fns'
 import Icon from 'react-native-vector-icons/Entypo';
 
 type shitListEntry = {
-  date: Date;
-  title: string;
+  dateBegin: Date | undefined;
+  dateEnd: Date | undefined;
+  name: string;
 };
 
 const getNextShitter = ( shitListSorted: shitListEntry[] ) => {
   const currentDate = new Date();
-  const dateList = shitListSorted.map(entry => entry.date);
+  const dateList = shitListSorted.map(entry => entry.dateBegin ??= new Date());
   var closest_idx = closestIndexTo(currentDate, dateList);
   
   if(closest_idx !== undefined){
-    if(isBefore(shitListSorted[closest_idx].date, currentDate)){
+    if(isBefore(shitListSorted[closest_idx].dateBegin ??= new Date, currentDate)){
       closest_idx++;
     }
   }
   else{
-    return {date: new Date(1969, 4, 20), title: 'No shit appointments registered yet.'}
+    return {dateBegin: new Date(1969, 4, 20), dateEnd: new Date(1969, 4,21), name: 'No shit appointments registered yet.'}
   }
-  console.log("closestidx: ",closest_idx)
   return shitListSorted[closest_idx];
 };
 
@@ -32,8 +32,8 @@ const NextShitterComponent = (props: any) => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.nextShitterContainer}>
-        <Text style={styles.nextShitterFont1}>Next shitter is: {getNextShitter(data).title}!</Text>
-        <Text style={styles.nextShitterFont2}>Shit reserved for {format(getNextShitter(data).date, 'dd.MM.yyyy')}!</Text> 
+        <Text style={styles.nextShitterFont1}>Next shitter is: {getNextShitter(data).name}!</Text>
+        <Text style={styles.nextShitterFont2}>Shit reserved for {format(getNextShitter(data).dateBegin ??= new Date(), 'dd.MM.yyyy')}!</Text> 
         <View style={styles.cancelBtnContainer}>
           <Icon.Button iconStyle={{marginRight: 5}} borderRadius={20} name='circle-with-cross' style={styles.cancelShitappointmentBtn}>
             Cancel Shittapointment

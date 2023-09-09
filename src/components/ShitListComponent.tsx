@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { format, compareDesc } from "date-fns";
 import Entypo from 'react-native-vector-icons/Entypo';
+import { channel } from './supabaseConfig'
 
 type shitListEntry = {
   date: Date;
@@ -44,17 +45,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const FlatListItemSeparator = () => {
-  return (
-    <View
-      style={{
-        height: 1,
-        width: "100%",
-        backgroundColor: "#000",
-      }}
-    />
-  );
-}
+
 
 
 const compShitListEntries = ( a: shitListEntry, b: shitListEntry ) => {
@@ -84,7 +75,6 @@ const ShitListComponent = (props: any) => {
         data={data}
         renderItem={({item}) => renderShitListEntry(item)}
         keyExtractor={item => format(item.date, 'yyyy-MM-dd')}
-        //ItemSeparatorComponent={FlatListItemSeparator}
       />
     </View>
   );
