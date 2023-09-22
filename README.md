@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/fischer-hub/Shitwise/blob/main/res/img/status_bar_title.png?raw=true" />
+</p>
+
 # About Shitwise
 Welcome to the official Shitwise github repository!
 
