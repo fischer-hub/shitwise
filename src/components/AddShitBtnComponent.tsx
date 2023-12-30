@@ -4,7 +4,9 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import DatePicker from 'react-native-date-picker';
 import { format, minTime, isBefore } from 'date-fns'
 import { TouchableWithoutFeedback } from 'react-native';
-import { shitwiseDB } from './supabaseConfig' 
+import { shitwiseDB } from './supabaseConfig';
+import myName from "../helper";
+
 
 
 type shitListEntry = {
@@ -22,23 +24,27 @@ const renderDate = (date: Date | undefined, title: string) => {
   }
 }
 
-const addShittapointment = async (shittapointment: shitListEntry) => {
 
-  shittapointment.dateBegin ??= new Date()
-  shittapointment.dateEnd ??= new Date()
-  
-  const { error } = await shitwiseDB.from('shittapointments').insert({ begin: format(shittapointment.dateBegin, 'MM-dd-y HH:mm:SS'), end: format(shittapointment.dateEnd, 'MM-dd-y HH:mm:SS'), name: shittapointment.name })
-  console.log(error)
-
-
-}
-
-const AddShitBtnComponent = () => {
+const AddShitBtnComponent = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [begin, setDateBegin] = useState<undefined|Date>(undefined);
   const [end, setDateEnd] = useState<undefined|Date>(undefined);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
+  let addToList = props.addToList
+
+  const addShittapointment = async (shittapointment: shitListEntry) => {
+
+    shittapointment.dateBegin ??= new Date()
+    shittapointment.dateEnd ??= new Date()
+    
+    const { error } = await shitwiseDB.from('shittapointments').insert({ begin: format(shittapointment.dateBegin, 'MM-dd-y HH:mm:SS'), end: format(shittapointment.dateEnd, 'MM-dd-y HH:mm:SS'), name: shittapointment.name })
+    
+    console.log(error)
+    addToList(shittapointment)
+  
+  
+  }
 
   return (
     <View>
@@ -80,7 +86,7 @@ const AddShitBtnComponent = () => {
                   />
                 </View>
                 <View style={styles.dialogueBtnsView}>
-                  <Pressable style={styles.confirmBtn} onPress={() => {setModalVisible(false); addShittapointment({dateBegin: begin, dateEnd: end, name: 'begin'})}}>
+                  <Pressable style={styles.confirmBtn} onPress={() => {setModalVisible(false); addShittapointment({dateBegin: begin, dateEnd: end, name: props.myName})}}>
                     <Text style={styles.confirmBtnText}>Confirm</Text>
                   </Pressable>
                 </View>

@@ -1,52 +1,31 @@
 import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
-import NextShitterComponent from './src/components/NextShitterComponent'
-import ShitListComponent from './src/components/ShitListComponent'
-import { compareAsc } from 'date-fns'
-import AddShitBtnComponent from './src/components/AddShitBtnComponent'
-import StatusBarComponent from './src/components/StatusBarComponent'
+import { StyleSheet } from 'react-native'
 import 'react-native-url-polyfill/auto'
 import { shitwiseDB } from './src/components/supabaseConfig'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src/screens/HomeScreen'
+import ShitListEntryScreen from './src/screens/ShitListEntryScreen';
 
 
-type shitListEntry = {
-  dateBegin: Date | undefined;
-  dateEnd: Date | undefined;
-  name: string;
-};
-
-const compShitListEntries = ( a: shitListEntry, b: shitListEntry ) => {
-  a.dateBegin ??= new Date()
-  b.dateBegin ??= new Date()
-  return compareAsc(a.dateBegin, b.dateBegin);
-};
-
-
-export const channel = shitwiseDB.channel('schema-db-changes').on('postgres_changes', { event: 'INSERT', schema: 'public'}, (payload) => 
-  console.log(payload)
+export const channel = shitwiseDB
+  .channel('schema-db-changes')
+  .on('postgres_changes', { event: 'INSERT', schema: 'public'}, (payload) => 
+  console.log('payload')
   ).subscribe()
 
-const DATA = [
-  {
-    dateBegin: new Date(1995, 6, 2),
-    dateEnd: new Date(1995, 6, 5),
-    name: 'Yoyi',
-  },
-];
+
+const Stack = createStackNavigator();
 
 const App = () => {
 
-  return(
-    <View style={styles.container}>
-      <StatusBarComponent/>
-      <View style={styles.nextShitterDisplay}>
-        <NextShitterComponent shitList = {DATA.sort(compShitListEntries)}/>
-      </View>
-      <View style={styles.shitListDisplay}>
-        <ShitListComponent shitList = {DATA.sort(compShitListEntries)}/>
-      </View>
-      <AddShitBtnComponent/>
-    </View>
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="ShitListEntryScreen" component={ShitListEntryScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 

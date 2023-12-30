@@ -1,5 +1,5 @@
-import React from 'react';
-import {Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {Text, View, SafeAreaView, StyleSheet, LayoutChangeEvent } from 'react-native';
 import { format, closestIndexTo, isBefore } from 'date-fns'
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -9,13 +9,33 @@ type shitListEntry = {
   name: string;
 };
 
+interface ScalableTextProps {
+  text: string;
+  width: number;
+}
+
+const ScalableText: React.FC<ScalableTextProps> = ( {text}, {width} ) => {
+  // Calculate font size based on text length
+  const fontSize = width / text.length;
+  console.log(width)
+  console.log(fontSize)
+
+  return (
+    <View>
+      <Text style={{ fontSize }} numberOfLines={1}>
+        {text}
+      </Text>
+    </View>
+  );
+};
+
 const getNextShitter = ( shitListSorted: shitListEntry[] ) => {
   const currentDate = new Date();
   const dateList = shitListSorted.map(entry => entry.dateBegin ??= new Date());
   var closest_idx = closestIndexTo(currentDate, dateList);
   
   if(closest_idx !== undefined){
-    if(isBefore(shitListSorted[closest_idx].dateBegin ??= new Date, currentDate)){
+    if(isBefore(shitListSorted[closest_idx].dateBegin ??= new Date, currentDate) && shitListSorted.length > 1){
       closest_idx++;
     }
   }
@@ -28,11 +48,12 @@ const getNextShitter = ( shitListSorted: shitListEntry[] ) => {
 const NextShitterComponent = (props: any) => {
 
   const data = props.shitList;
+  const [viewWidth, setViewWidth] = useState(0);
 
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.nextShitterContainer}>
-        <Text style={styles.nextShitterFont1}>Next shitter is: {getNextShitter(data).name}!</Text>
+        <Text style={styles.nextShitterFont1} adjustsFontSizeToFit={true} numberOfLines={1}>Next shitter is: {getNextShitter(data).name}!</Text> 
         <Text style={styles.nextShitterFont2}>Shit reserved for {format(getNextShitter(data).dateBegin ??= new Date(), 'dd.MM.yyyy')}!</Text> 
         <View style={styles.cancelBtnContainer}>
           <Icon.Button iconStyle={{marginRight: 5}} borderRadius={20} name='circle-with-cross' style={styles.cancelShitappointmentBtn}>
@@ -63,8 +84,8 @@ const styles = StyleSheet.create({
   },
   nextShitterFont1: {
     fontWeight: 'bold',
-    fontSize: 30,
-    color: 'black'
+    color: 'black',
+  fontSize: 30
   },
   nextShitterFont2: {
     fontSize: 20,
