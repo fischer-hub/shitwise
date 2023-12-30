@@ -48,7 +48,6 @@ const getNextShitter = ( shitListSorted: shitListEntry[] ) => {
 const NextShitterComponent = (props: any) => {
 
   const data = props.shitList;
-  const [viewWidth, setViewWidth] = useState(0);
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
   nextShitterFont1: {
     fontWeight: 'bold',
     color: 'black',
-  fontSize: 30
+    fontSize: 30
   },
   nextShitterFont2: {
     fontSize: 20,

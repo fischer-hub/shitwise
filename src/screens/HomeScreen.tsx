@@ -37,7 +37,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
     {
       dateBegin: new Date(1995, 6, 2),
       dateEnd: new Date(1995, 6, 5),
-      name: 'Yoyi',
+      name: 'Yoyo',
     }
   ]);
 
